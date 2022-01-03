@@ -3,6 +3,8 @@ A constexpr guaranteed compile-time data obfuscator.
 
 Obfuscated data storges in program and decodes in stack/heap.
 
+Thread safe.
+
 Tested on MSVC 2019 and Clang-LLVM12.
 
 Requires at least C++14.
