@@ -38,20 +38,20 @@ namespace MoePus {
 				data[i] ^= key;
 			}
 		}
-		const T* dec()
+		const T *dec()
 		{
-			BlockType k = key + (((BlockType)data * ((BlockType)data + 1)) & 1);
+			BlockType randInt = rand();
+			BlockType k = key + key * (((BlockType)randInt * ((BlockType)randInt + 1)) & 1);
 			int i;
 			for (i = 0; i < block_count - (N % sizeof(BlockType) ? 1 : 0); i++)
 			{
 				data[i] ^= k;
 			}
-			if (N % sizeof(BlockType))
+			for (int j = 0; j < N % sizeof(BlockType); j++)
 			{
-				BlockType m = data[i] ^ k;
-				memcpy(&data[i], &m, N % sizeof(BlockType));
+				((char *)&data[i])[j] ^= (k >> (j * 8)) & 0xff;
 			}
-			return (T*)&data[0];
+			return (T *)&data[0];
 		}
 		operator const T*() const
 		{
